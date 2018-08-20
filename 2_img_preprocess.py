@@ -26,7 +26,7 @@ else:
 
         full_path = path.join(root, filename)
         out_file = path.join(output, removeExt(filename) + '.jpg')
-        y = np.load(full_path)
+        y = np.load(full_path)['arr']
         D = np.abs(librosa.stft(y, n_fft=2048, hop_length=512))
         librosa.display.specshow(librosa.amplitude_to_db(D, ref=np.max),
             sr=22050, y_axis='mel', x_axis='time')

@@ -27,5 +27,5 @@ else:
         y, sr = librosa.load(full_path, sr=None)
         y = librosa.to_mono(y)
         y = preemphasis(y, coeff=0.97)
-        np.save(out_file, y)
+        np.savez_compressed(out_file, arr=y)
         

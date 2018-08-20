@@ -29,7 +29,7 @@ else:
 
         full_path = path.join(root, filename)
         out_file = path.join(output, removeExt(filename))
-        y = np.load(full_path)
+        y = np.load(full_path)['arr']
         
         # https://arxiv.org/pdf/1804.01149.pdf
         # central moments
