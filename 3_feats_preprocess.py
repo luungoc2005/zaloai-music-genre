@@ -98,7 +98,7 @@ else:
             spectral_contrast_mean, spectral_contrast_std,
             spectral_rolloff_mean, spectral_rolloff_std
         ], dtype='float32')
-        print(feats.shape)
+        # print(feats.shape) # 81 features
 
         np.save(out_file, feats)
 
