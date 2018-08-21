@@ -1,3 +1,6 @@
+import matplotlib
+matplotlib.use('Agg')
+
 import librosa
 import librosa.display
 import argparse
@@ -26,7 +29,7 @@ else:
 
         full_path = path.join(root, filename)
         out_file = path.join(output, removeExt(filename) + '.jpg')
-        
+
         if full_path[-3:] == 'npz':
             y = np.load(full_path)['arr']
         else:
