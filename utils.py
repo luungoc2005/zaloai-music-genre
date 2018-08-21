@@ -1,4 +1,11 @@
 import numpy as np
+import librosa
+
+def toNp(full_path):
+    y, sr = librosa.load(full_path, sr=None)
+    y = librosa.to_mono(y)
+    y = preemphasis(y, coeff=0.97)
+    return y
 
 def removeExt(filename):
     if '.' not in filename:

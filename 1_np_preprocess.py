@@ -3,7 +3,7 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 from os import path, listdir
-from utils import removeExt, preemphasis
+from utils import removeExt, toNp
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', type=str, default='./input')
@@ -24,8 +24,5 @@ else:
 
         full_path = path.join(root, filename)
         out_file = path.join(output, removeExt(filename))
-        y, sr = librosa.load(full_path, sr=None)
-        y = librosa.to_mono(y)
-        y = preemphasis(y, coeff=0.97)
-        np.savez_compressed(out_file, arr=y)
+        np.savez_compressed(out_file, arr=toNp(full_path))
         

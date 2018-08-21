@@ -29,7 +29,11 @@ else:
 
         full_path = path.join(root, filename)
         out_file = path.join(output, removeExt(filename))
-        y = np.load(full_path)['arr']
+
+        if full_path[-3:] == 'npz':
+            y = np.load(full_path)['arr']
+        else:
+            y = toNp(full_path)
         
         # https://arxiv.org/pdf/1804.01149.pdf
         # central moments
@@ -100,7 +104,7 @@ else:
         ], dtype='float32')
         # print(feats.shape) # 81 features
 
-        np.save(out_file, feats)
+        np.savez_compressed(out_file, feats)
 
 
 
