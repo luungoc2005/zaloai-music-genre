@@ -23,6 +23,10 @@ else:
             continue
 
         full_path = path.join(root, filename)
-        out_file = path.join(output, removeExt(filename))
+        out_file = path.join(output, removeExt(filename) + '.npz')
+
+        if path.exists(out_file):
+            continue
+        
         np.savez_compressed(out_file, arr=toNp(full_path))
         

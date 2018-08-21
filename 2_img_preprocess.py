@@ -35,6 +35,9 @@ else:
         else:
             y = toNp(full_path)
         
+        if path.exists(out_file):
+            continue
+        
         D = np.abs(librosa.stft(y, n_fft=2048, hop_length=512))
         librosa.display.specshow(librosa.amplitude_to_db(D, ref=np.max),
             sr=22050, y_axis='mel', x_axis='time')

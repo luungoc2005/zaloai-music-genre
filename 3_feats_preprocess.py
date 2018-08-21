@@ -31,12 +31,15 @@ else:
             continue
 
         full_path = path.join(root, filename)
-        out_file = path.join(output, removeExt(filename))
+        out_file = path.join(output, removeExt(filename) + '.npz')
 
         if full_path[-3:] == 'npz':
             y = np.load(full_path)['arr']
         else:
             y = toNp(full_path)
+
+        if path.exists(out_file):
+            continue
         
         # https://arxiv.org/pdf/1804.01149.pdf
         # central moments
