@@ -42,5 +42,5 @@ else:
         librosa.display.specshow(librosa.amplitude_to_db(D, ref=np.max),
             sr=22050, y_axis='mel', x_axis='time')
         plt.axis('off')
-        plt.subplots_adjust(left=0, right=0, top=0, bottom=0)
+        plt.subplots_adjust(left=0.1, right=0.2, top=0.2, bottom=0.1)
         plt.savefig(out_file, bbox_inches='tight', pad_inches=0)
