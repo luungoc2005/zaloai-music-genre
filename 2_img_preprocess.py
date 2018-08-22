@@ -42,4 +42,4 @@ else:
         librosa.display.specshow(librosa.amplitude_to_db(D, ref=np.max),
             sr=22050, y_axis='mel', x_axis='time')
         plt.axis('off')
-        plt.savefig(out_file, bbox_inches='tight')
+        plt.savefig(out_file, bbox_inches='tight', pad_inches=0)
