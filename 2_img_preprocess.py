@@ -39,8 +39,10 @@ else:
             continue
         
         D = np.abs(librosa.stft(y, n_fft=2048, hop_length=512))
+
+        plt.axis('off')
+        plt.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
         librosa.display.specshow(librosa.amplitude_to_db(D, ref=np.max),
             sr=22050, y_axis='mel', x_axis='time')
-        plt.axis('off')
-        plt.tight_layout()
         plt.savefig(out_file, bbox_inches='tight', pad_inches=0)
+        plt.close()
