@@ -44,6 +44,8 @@ def processImgFile(filename):
     plt.savefig(out_file, bbox_inches='tight', pad_inches=0)
     plt.close()
 
+    return
+
 if not path.exists(root) or not path.isdir(root):
     print('Invalid input directory')
 elif not path.exists(output) or not path.isdir(output):
