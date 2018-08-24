@@ -14,6 +14,7 @@ from utils import removeExt, toNp
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', type=str, default='./input_np')
 parser.add_argument('--output_dir', type=str, default='./input_img')
+parser.add_argument('--n_workers', type=int, default=2)
 
 args = parser.parse_args()
 
@@ -52,7 +53,7 @@ elif not path.exists(output) or not path.isdir(output):
     print('Invallid output directory')
 else:
     all_files = listdir(root)
-    with mp.Pool(processes=7, maxtasksperchild=2) as p:
+    with mp.Pool(processes=args.n_workers, maxtasksperchild=2) as p:
         total = len(all_files)
         with tqdm(total=total) as pbar:
             for i, _ in tqdm(enumerate(p.imap_unordered(processImgFile, all_files))):
