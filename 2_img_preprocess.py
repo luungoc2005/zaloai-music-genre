@@ -52,7 +52,7 @@ elif not path.exists(output) or not path.isdir(output):
     print('Invallid output directory')
 else:
     all_files = listdir(root)
-    with mp.Pool(processes=2) as p:
+    with mp.Pool(processes=7, maxtasksperchild=2) as p:
         total = len(all_files)
         with tqdm(total=total) as pbar:
             for i, _ in tqdm(enumerate(p.imap_unordered(processImgFile, all_files))):
