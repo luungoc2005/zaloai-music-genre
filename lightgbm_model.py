@@ -40,7 +40,7 @@ else:
     
     all_files = listdir(root_test)
     for filename in tqdm(all_files):
-        full_path = path.join(root, filename)
+        full_path = path.join(root_test, filename)
         X_test.append(np.load(full_path))
 
     X_train = np.array(X_train)
