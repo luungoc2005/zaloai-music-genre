@@ -35,7 +35,7 @@ else:
         if item_name in all_labels:
             item_idx = all_labels.index(item_name)
             class_idx = input_csv[1][item_idx] - 1
-            X_train.append(np.load(full_path))
+            X_train.append(np.load(full_path).tolist())
             y_train.append(class_lookup[class_idx])
     
     all_files = listdir(root_test)
@@ -46,7 +46,8 @@ else:
     X_train = np.array(X_train)
     X_test = np.array(X_test)
     y_train = np.array(y_train)
-    print('Loaded %s items' % len(X_train.shape))
+    print('Loaded %s train items' % str(X_train.shape))
+    print('Loaded %s test items' % str(X_test.shape))
 
     # Begin training code
     from sklearn.cross_validation import train_test_split
