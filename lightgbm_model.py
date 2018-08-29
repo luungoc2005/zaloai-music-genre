@@ -36,7 +36,8 @@ else:
             item_idx = all_labels.index(item_name)
             class_idx = input_csv[1][item_idx] - 1
             X_train.append(np.load(full_path)['arr_0'].tolist())
-            y_train.append(class_lookup[class_idx])
+            # y_train.append(class_lookup[class_idx])
+            y_train.append(class_idx)
     
     all_files = listdir(root_test)
     for filename in tqdm(all_files):
