@@ -65,18 +65,17 @@ else:
     d_train = lgb.Dataset(X_train, label=y_train)
     d_valid = lgb.Dataset(X_dev, label=y_dev)
     params = {}
-    params['valid_data'] = d_valid
-    params['learning_rate'] = 0.05
+    params['learning_rate'] = 0.01
     params['boosting_type'] = 'gbdt'
     params['objective'] = 'multiclass'
     params['metric'] = 'multi_logloss'
     params['num_class'] = 10
-    params['num_leaves'] = 31
-    params['max_bin'] = 255
-    params['metric_freq'] = 5
+    params['num_leaves'] = 100
+    params['max_bin'] = 1024
+    params['metric_freq'] = 20
     params['is_training_metric'] = True
     params['early_stopping'] = 20
-    clf = lgb.train(params, d_train, 10000)
+    clf = lgb.train(params, d_train, 10000, valid_sets=[d_valid])
 
     y_pred = clf.predict(X_dev)
     y_pred = np.round(np.argmax(y_pred, axis=1)).astype(int)
