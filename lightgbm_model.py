@@ -62,29 +62,49 @@ else:
     X_train, X_dev, y_train, y_dev = train_test_split(X_train, y_train, 
         test_size = 0.25, random_state = 197)
     
-    import lightgbm as lgb
-    d_train = lgb.Dataset(X_train, label=y_train)
-    d_valid = lgb.Dataset(X_dev, label=y_dev)
-    params = {}
-    params['learning_rate'] = 0.01
-    params['boosting_type'] = 'gbdt'
-    params['objective'] = 'multiclass'
-    params['metric'] = 'multi_logloss'
-    params['num_class'] = 10
-    params['num_leaves'] = 100
-    params['max_bin'] = 1024
-    params['metric_freq'] = 20
-    params['is_training_metric'] = True
-    params['early_stopping'] = 20
-    clf = lgb.train(params, d_train, 10000, valid_sets=[d_valid])
+    # import lightgbm as lgb
+    # d_train = lgb.Dataset(X_train, label=y_train)
+    # d_valid = lgb.Dataset(X_dev, label=y_dev)
+    # params = {}
+    # params['learning_rate'] = 0.01
+    # params['boosting_type'] = 'gbdt'
+    # params['objective'] = 'multiclass'
+    # params['metric'] = 'multi_logloss'
+    # params['num_class'] = 10
+    # params['max_depth'] = 5
+    # params['num_leaves'] = 30
+    # params['max_bin'] = 128
+    # params['metric_freq'] = 20
+    # params['is_training_metric'] = True
+    # params['early_stopping'] = 20
+    # clf = lgb.train(params, d_train, 20000, valid_sets=[d_valid])
 
-    y_pred = clf.predict(X_dev)
-    y_pred = np.round(np.argmax(y_pred, axis=1)).astype(int)
+    # y_pred = clf.predict(X_dev)
+    # y_pred = np.round(np.argmax(y_pred, axis=1)).astype(int)
 
+    # from sklearn.metrics import accuracy_score
+    # print('Accuracy: %s' % accuracy_score(y_pred, y_dev))
+
+    from xgboost import XGBClassifier
     from sklearn.metrics import accuracy_score
-    print('Accuracy: %s' % accuracy_score(y_pred, y_dev))
 
-    y_test = np.round(np.argmax(clf.predict(X_test), axis=1)).astype(int)
+    def xgbc(n_estimators):
+        model = XGBClassifier(n_estimators=n_estimators)
+        model.fit(X_train, y_train)
+        pred = model.predict(X_dev)
+
+        return model, accuracy_score(pred, y_dev)
+
+    best_model = None
+    best_score = -1
+    for estimators in range(5000, 10000, 1000):
+        model, score = xgbc(estimators)
+        if score > best_score:
+            best_score = score
+            best_model = model
+        print('Number of estimators: {} \t\t Accuracy: {}'.format(estimators, score))
+
+    y_test = np.round(np.argmax(best_model.predict(X_test), axis=1)).astype(int)
     
     sub = pd.read_csv(args.sub_csv)
     sub[1] = y_test
