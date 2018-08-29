@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', type=str, default='./input_feats')
 parser.add_argument('--input_test_dir', type=str, default='./test_feats')
 parser.add_argument('--input_csv', type=str, default='./train.csv')
+parser.add_argument('--sub_csv', type=str, default='./sample_submission.csv')
 args = parser.parse_args()
 
 root = args.input_dir
@@ -82,3 +83,9 @@ else:
 
     from sklearn.metrics import accuracy_score
     print('Accuracy: %s' % accuracy_score(y_pred, y_dev))
+
+    y_test = np.round(np.argmax(clf.predict(X_test), axis=1)).astype(int)
+    
+    sub = pd.read_csv(args.sub_csv)
+    sub[1] = y_test
+    sub.to_csv('feats_output.csv')
