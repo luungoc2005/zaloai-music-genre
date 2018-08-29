@@ -33,7 +33,8 @@ else:
         full_path = path.join(root, filename)
         item_name = removeExt(filename) + '.mp3'
         if item_name in all_labels:
-            class_idx = all_labels.index(item_name) - 1
+            item_idx = all_labels.index(item_name)
+            class_idx = input_csv[1][item_idx] - 1
             X_train.append(np.load(full_path))
             y_train.append(class_lookup[class_idx])
     
