@@ -64,15 +64,16 @@ else:
     import lightgbm as lgb
     d_train = lgb.Dataset(X_train, label=y_train)
     params = {}
-    params['learning_rate'] = 0.003
+    params['learning_rate'] = 0.05
     params['boosting_type'] = 'gbdt'
-    params['objective'] = 'binary'
-    params['metric'] = 'binary_logloss'
-    params['sub_feature'] = 0.5
-    params['num_leaves'] = 10
-    params['min_data'] = 50
-    params['max_depth'] = 10
-    clf = lgb.train(params, d_train, 100)
+    params['objective'] = 'multiclass'
+    params['metric'] = 'multi_logloss'
+    params['num_class'] = 10
+    params['num_leaves'] = 31
+    params['max_bin'] = 255
+    params['is_training_metric'] = True
+    params['early_stopping'] = 20
+    clf = lgb.train(params, d_train, 10000)
 
     y_pred = clf.predict(X_dev)
     y_pred = np.round(np.argmax(y_pred, axis=1)).astype(int)
