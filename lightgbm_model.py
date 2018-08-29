@@ -46,7 +46,7 @@ else:
     X_train = np.array(X_train)
     X_test = np.array(X_test)
     y_train = np.array(y_train)
-    print('Loaded %s items' % len(X_train))
+    print('Loaded %s items' % len(X_train.shape))
 
     # Begin training code
     from sklearn.cross_validation import train_test_split
@@ -54,7 +54,7 @@ else:
 
     sc = StandardScaler()
     X_train = sc.fit_transform(X_train)
-    X_test = sc.fit_transform(X_test)
+    X_test = sc.transform(X_test)
 
     X_train, X_dev, y_train, y_dev = train_test_split(X_train, y_train, 
         test_size = 0.25, random_state = 197)
