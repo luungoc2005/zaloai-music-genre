@@ -63,7 +63,9 @@ else:
     
     import lightgbm as lgb
     d_train = lgb.Dataset(X_train, label=y_train)
+    d_valid = lgb.Dataset(X_dev, label=y_dev)
     params = {}
+    params['valid_data'] = d_valid
     params['learning_rate'] = 0.05
     params['boosting_type'] = 'gbdt'
     params['objective'] = 'multiclass'
@@ -71,6 +73,7 @@ else:
     params['num_class'] = 10
     params['num_leaves'] = 31
     params['max_bin'] = 255
+    params['metric_freq'] = 5
     params['is_training_metric'] = True
     params['early_stopping'] = 20
     clf = lgb.train(params, d_train, 10000)
