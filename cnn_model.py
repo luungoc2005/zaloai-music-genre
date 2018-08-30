@@ -74,7 +74,7 @@ else:
         class_weight=class_weights
     )
     model.save_weights(model_name + 'best_model.h5')
-    best_score = history.history['accuracy'][-1]
+    best_score = history.history['acc'][-1]
     print('Model score %s' % best_score)
     
     y_probs = model.predict_generator(
