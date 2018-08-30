@@ -67,7 +67,7 @@ else:
 
     history = model.fit_generator(train_generator,
         steps_per_epoch=math.ceil(nb_train_samples / batch_size),
-        epochs=10000,
+        epochs=100,
         callbacks=[
             EarlyStopping(monitor='loss', patience=5, verbose=1)
         ],
