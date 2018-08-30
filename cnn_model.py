@@ -7,6 +7,7 @@ from os import path, listdir
 from utils import removeExt
 from keras_preprocessing.image import ImageDataGenerator
 from keras import applications
+from keras import optimizers
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', type=str, default='./input_img')
@@ -61,14 +62,14 @@ else:
 
     from keras.callbacks import EarlyStopping
 
-    model.compile(optimizer='adam',
+    model.compile(optimizer=optimizers.SGD(lr=1e-4, momentum=0.9),
         loss='categorical_crossentropy', metrics=['accuracy'])
 
     history = model.fit_generator(train_generator,
         steps_per_epoch=math.ceil(nb_train_samples / batch_size),
         epochs=10000,
         callbacks=[
-            EarlyStopping(monitor='accuracy', patience=5, verbose=1)
+            EarlyStopping(monitor='loss', patience=5, verbose=1)
         ],
         class_weight=class_weights
     )
