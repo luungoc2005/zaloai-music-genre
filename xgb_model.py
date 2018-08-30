@@ -110,7 +110,7 @@ else:
     y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
     
     sub = pd.read_csv(args.sub_csv)
-    sub['Genre'] = y_test
+    sub[' Genre'] = y_test
     sub.to_csv('xgb_output.csv', index=False)
 
     y_test = best_model.predict_proba(X_test)

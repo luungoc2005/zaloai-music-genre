@@ -103,7 +103,7 @@ else:
     y_probs = model.predict(X_test)
     y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
     
-    sub['Genre'] = y_test
+    sub[' Genre'] = y_test
     sub.to_csv('vgg_output.csv', index=False)
 
     vgg_proba = pd.DataFrame(y_probs)
