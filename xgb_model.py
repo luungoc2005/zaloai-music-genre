@@ -97,15 +97,32 @@ else:
 
     best_model = None
     best_score = -1
-    for estimators in range(5000, 10000, 1000):
+    for estimators in range(6000, 7000, 100):
         model, score = xgbc(estimators)
         if score > best_score:
             best_score = score
             best_model = model
+        else:
+            break
         print('Number of estimators: {} \t\t Accuracy: {}'.format(estimators, score))
 
-    y_test = np.round(np.argmax(best_model.predict(X_test), axis=1)).astype(int)
+    y_probs = best_model.predict_proba(X_test)
+    y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
     
     sub = pd.read_csv(args.sub_csv)
-    sub[1] = y_test
-    sub.to_csv('feats_output.csv')
+    sub['Genre'] = y_test
+    sub.to_csv('xgb_output.csv', index=False)
+
+    y_test = best_model.predict_proba(X_test)
+    xgb_proba = pd.DataFrame(y_test)
+    xgb_proba.to_csv('xgb_proba.csv', index=False)
+
+    import json
+    if path.exists('scores.json'):
+        scores = json.load('scores.json')
+    else:
+        scores = {}
+    scores['xgb_proba'] = best_score
+    json.dump('scores.json', scores)
+
+
