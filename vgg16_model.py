@@ -98,6 +98,7 @@ else:
         validation_split=0.25
     )
     model.save_weights('best_model.h5')
+    print('Model score %s' % history.history['val_acc'][-1])
 
     y_probs = model.predict(X_test)
     y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
