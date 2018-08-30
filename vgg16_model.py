@@ -13,12 +13,13 @@ parser.add_argument('--input_dir', type=str, default='./input_img')
 parser.add_argument('--input_test_dir', type=str, default='./test_img')
 parser.add_argument('--input_csv', type=str, default='./train.csv')
 parser.add_argument('--sub_csv', type=str, default='./sample_submission.csv')
+parser.add_argument('--batch_size', type=int, default=8)
 args = parser.parse_args()
 
 root = args.input_dir
 root_test = args.input_test_dir
 input_csv = args.input_csv
-batch_size = 1
+batch_size = args.batch_size
 
 if not path.exists(root) or not path.isdir(root):
     print('Invalid input directory')
