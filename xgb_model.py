@@ -107,7 +107,7 @@ else:
         print('Number of estimators: {} \t\t Accuracy: {}'.format(estimators, score))
 
     y_probs = best_model.predict_proba(X_test)
-    y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
+    y_test = np.round(np.argmax(y_probs, axis=1)).astype(int) + 1
     
     sub = pd.read_csv(args.sub_csv)
     sub[' Genre'] = y_test
@@ -119,10 +119,12 @@ else:
 
     import json
     if path.exists('scores.json'):
-        scores = json.load('scores.json')
+        with open('scores.json', 'r') as scores_file:
+            scores = json.load(scores_file)
     else:
         scores = {}
     scores['xgb_proba'] = best_score
-    json.dump('scores.json', scores)
+    with open('scores.json', 'w') as scores_file:
+        json.dump(scores, scores_file)
 
 
