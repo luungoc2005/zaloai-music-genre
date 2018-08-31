@@ -105,5 +105,5 @@ venv.bak/
 
 # input directory
 input/
-.npy
-.h5
+*.npy
+*.h5
