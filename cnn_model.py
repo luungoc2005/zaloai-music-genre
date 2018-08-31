@@ -48,6 +48,8 @@ else:
         shuffle=True)
     label_map = dict((v, k) for k, v in train_generator.class_indices.items())
     
+    print(label_map)
+    
     test_generator = datagen.flow_from_directory(
         root_test,
         target_size=(224, 224),
