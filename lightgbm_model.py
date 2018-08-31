@@ -80,7 +80,7 @@ else:
     clf = lgb.train(params, d_train, 20000, valid_sets=[d_valid])
 
     from sklearn.metrics import accuracy_score
-    y_pred = clf.predict(X_dev)
+    y_pred = np.round(np.argmax(clf.predict(X_dev), axis=1)).astype(int)
     score = accuracy_score(y_pred, y_dev)
     print('Model score: %s' % score)
 
