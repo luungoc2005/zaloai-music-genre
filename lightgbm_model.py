@@ -84,7 +84,7 @@ else:
     score = accuracy_score(y_pred, y_dev)
     print('Model score: %s' % score)
 
-    y_probs = clf.predict_proba(X_test)
+    y_probs = clf.predict(X_test)
     y_test = np.round(np.argmax(y_probs, axis=1)).astype(int) + 1
     
     sub = pd.read_csv(args.sub_csv)
