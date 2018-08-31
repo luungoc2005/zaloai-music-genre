@@ -82,7 +82,7 @@ else:
     y_probs = model.predict_generator(
         test_generator, math.ceil(nb_test_samples / batch_size), verbose=1)
     y_test = np.round(np.argmax(y_probs, axis=1)).astype(int)
-    y_test = np.array([int(label_map[str(label)]) for label in y_test])
+    y_test = np.array([int(label_map[label]) for label in y_test])
     
     sub[' Genre'] = y_test
     sub.to_csv(model_name + '_output.csv', index=False)
