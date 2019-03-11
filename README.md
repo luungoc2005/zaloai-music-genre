@@ -1,1 +1,1 @@
-music-genre
+Music Genre classification with ConvNet
